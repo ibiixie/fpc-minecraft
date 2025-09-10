@@ -1,0 +1,118 @@
+services:
+  minecraft:
+    image: itzg/minecraft-server:java21-graalvm
+    restart: always
+    tty: true
+    stdin_open: true
+    container_name: fpc-minecraft
+    labels:
+      - docker-volume-backup.stop-during-backup=true
+    networks:
+      - vps_infra_main_proxy_net
+    environment:
+      EULA: true
+      TYPE: FABRIC
+      MEMORY: 14G
+      VERSION: "1.21.8"
+      USE_MEOWICE_GRAALVM_FLAGS: true
+      GUI: false
+      MOTD: \u00A7l\u00A75~\u00A7d🌸 Petals' Craft 🌸\u00A75~
+      SERVER_NAME: Petals' Craft
+      MAX_PLAYERS: 128
+      SPAWN_PROTECTION: 0
+      ENFORCE_SECURE_PROFILE: false
+      BROADCAST_CONSOLE_TO_OPS: true
+      BROADCAST_RCON_TO_OPS: true
+      SIMULATION_DISTANCE: 10
+      VIEW_DISTANCE: 10
+      DIFFICULTY: normal
+      ENABLE_WHITELIST: true
+      WHITELIST: |-
+        iBiixie
+        Rescuwu
+        Lesslos_LP
+        Kosiati
+        Necrosynthesis
+      OPS: |-
+        iBiixie
+      ICON: /icon.png
+      OVERRIDE_ICON: true
+      ENABLE_RCON: true
+      MODS: |-
+        https://ci.lucko.me/job/LuckPermsPlaceholders/12/artifact/fabric-placeholderapi/build/libs/LuckPerms-Fabric-PlaceholderAPI-Hook.jar
+      MODRINTH_PROJECTS: |-
+        fabric-api:jjBL6OsN
+        fabric-language-kotlin:mccDBWqV
+        lithium:pDfTqezk
+        yacl:WxYlHLu6
+        debugify:WLSwJeXa
+        ferrite-core:CtMpt7Jr
+        luckperms:uStOaYyZ
+        placeholder-api:wg33PHxj
+        styled-chat:4iEiOcnO
+        polymer:6cqgmDx1
+        universal-graves:gdZmLCZD
+        collective:mld0ZPD9
+        tree-harvester:LG3WQ1fx
+        chunky:inWDi2cf
+        teleport-commands:P4t70i1a
+        ledger:f3h7no4G
+        spark:3KCl7Vx0
+        bluemap:plVwynim
+        bluemap-offline-player-markers-(fabric):w8iZe7gX
+      RCON_CMDS_STARTUP: |-
+        gamerule doFireTick false
+        gamerule mobGriefing false
+        gamerule playersSleepingPercentage 25
+      RCON_CMDS_FIRST_CONNECT: |-
+        chunky pause
+      RCON_CMDS_LAST_DISCONNECT: |-
+        chunky continue
+    ports:
+      - 44730:25565
+      - 8100:8100
+    volumes:
+      - ./minecraft:/data
+      - ./icon.png:/icon.png
+
+  backup:
+    image: offen/docker-volume-backup:v2
+    restart: always
+    environment:
+      BACKUP_FILENAME: backup-%Y-%m-%dT%H-%M-%S.tar.gz
+      BACKUP_CRON_EXPRESSION: "0 9 1/2 * *"
+      BACKUP_PRUNING_PREFIX: backup-
+      BACKUP_RETENTION_DAYS: '30'
+      AWS_ENDPOINT: ${S3_ENDPOINT}:${S3_PORT}
+      AWS_ENDPOINT_PROTO: https
+      AWS_S3_BUCKET_NAME: ${S3_BUCKET_NAME}
+      AWS_ACCESS_KEY_ID: minio-root
+      AWS_SECRET_ACCESS_KEY: WfTNHSPXNKobJ9xViihc2zM3J5EfZ5y8xFoqANnk34bpBUknQA6DQKRTeHCxP2Ae
+      env_file: .env
+#      AWS_ACCESS_KEY_ID_FILE: /run/secrets/minio_access_key
+#      AWS_SECRET_ACCESS_KEY_FILE: /run/secrets/minio_secret_key
+    volumes:
+      - ./minecraft/world:/backup/minecraft/world:ro
+      - ./minecraft/logs:/backup/minecraft/logs:ro
+      - ./minecraft/config:/backup/minecraft/config:ro
+      - ./minecraft/mods:/backup/minecraft/mods:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+# Backup container auto-detects if the mount is present, will skip local backups if not.
+#      - ./backups:/archive
+    networks:
+      - minio_net
+#    secrets:
+#      - minio_access_key
+#      - minio_secret_key
+
+networks:
+  minio_net:
+    external: true
+  vps_infra_main_proxy_net:
+    external: true
+
+secrets:
+    minio_access_key:
+      file: ./secrets/MINIO_ACCESS_KEY
+    minio_secret_key:
+      file: ./secrets/MINIO_SECRET_KEY
