@@ -1,0 +1,11 @@
+secrets
+.env
+**.env
+env.**
+
+minecraft/.cache
+minecraft/.fabric
+minecraft/bluemap
+minecraft/libraries
+minecraft/logs
+minecraft/mods/*.jar
