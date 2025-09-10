@@ -1,0 +1,22 @@
+name: Deploy
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: main
+    steps:
+    - name: 'Compose Deploy'
+      uses: cssnr/stack-deploy-action@v1
+      with:
+        name: 'fpc-minecraft'
+        file: 'compose.yaml'
+        host: ${{ secrets.DOCKER_HOST }}
+        port: ${{ secrets.DOCKER_PORT }}
+        user: ${{ secrets.DOCKER_USER }}
+        ssh_key: ${{ secrets.DOCKER_SSH_KEY }}
+        mode: compose
+        args: --remove-orphans --force-recreate

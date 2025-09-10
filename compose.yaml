@@ -7,8 +7,6 @@ services:
     container_name: fpc-minecraft
     labels:
       - docker-volume-backup.stop-during-backup=true
-    networks:
-      - vps_infra_main_proxy_net
     environment:
       EULA: true
       TYPE: FABRIC
@@ -83,36 +81,15 @@ services:
       BACKUP_CRON_EXPRESSION: "0 9 1/2 * *"
       BACKUP_PRUNING_PREFIX: backup-
       BACKUP_RETENTION_DAYS: '30'
-      AWS_ENDPOINT: ${S3_ENDPOINT}:${S3_PORT}
+      AWS_ENDPOINT: ${ vars.S3_ENDPOINT }:${ vars.S3_PORT }
       AWS_ENDPOINT_PROTO: https
-      AWS_S3_BUCKET_NAME: ${S3_BUCKET_NAME}
-      AWS_ACCESS_KEY_ID: minio-root
-      AWS_SECRET_ACCESS_KEY: WfTNHSPXNKobJ9xViihc2zM3J5EfZ5y8xFoqANnk34bpBUknQA6DQKRTeHCxP2Ae
+      AWS_S3_BUCKET_NAME: ${ vars.S3_BUCKET }
+      AWS_ACCESS_KEY_ID: ${{ secrets.S3_KEY }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.S3_SECRET }} 
       env_file: .env
-#      AWS_ACCESS_KEY_ID_FILE: /run/secrets/minio_access_key
-#      AWS_SECRET_ACCESS_KEY_FILE: /run/secrets/minio_secret_key
     volumes:
       - ./minecraft/world:/backup/minecraft/world:ro
       - ./minecraft/logs:/backup/minecraft/logs:ro
       - ./minecraft/config:/backup/minecraft/config:ro
       - ./minecraft/mods:/backup/minecraft/mods:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
-# Backup container auto-detects if the mount is present, will skip local backups if not.
-#      - ./backups:/archive
-    networks:
-      - minio_net
-#    secrets:
-#      - minio_access_key
-#      - minio_secret_key
-
-networks:
-  minio_net:
-    external: true
-  vps_infra_main_proxy_net:
-    external: true
-
-secrets:
-    minio_access_key:
-      file: ./secrets/MINIO_ACCESS_KEY
-    minio_secret_key:
-      file: ./secrets/MINIO_SECRET_KEY
