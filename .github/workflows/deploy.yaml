@@ -10,7 +10,29 @@ jobs:
     environment: main
     steps:
     - uses: actions/checkout@v5
-        
+
+    - name: Transfer Minecraft Data Dir
+      uses: appleboy/scp-action@v1
+      with:
+        host: ${{ secrets.DOCKER_HOST }}
+        username: ${{ secrets.DOCKER_USER }}
+        key: ${{ secrets.DOCKER_SSH_KEY }}
+        port: ${{ secrets.DOCKER_PORT }}
+        source: "./minecraft"
+        target: "/mnt/block-callisto/"
+        overwrite: true
+
+    - name: Transfer Minecraft Server Icon
+      uses: applyboy/scp-action@v1
+      with:
+        host: ${{ secrets.DOCKER_HOST }}
+        username: ${{ secrets.DOCKER_USER }}
+        key: ${{ secrets.DOCKER_SSH_KEY }}
+        port: ${{ secrets.DOCKER_PORT }}
+        source: "./icon.png"
+        target: "/mnt/block-callisto/"
+        overwrite: true
+
     - name: 'Compose Deploy'
       uses: cssnr/stack-deploy-action@v1
       with:
