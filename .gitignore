@@ -1,3 +1,3 @@
-!minecraft/config
+minecraft/*
+!minecraft/config/
 !minecraft/eula.txt
-minecraft/

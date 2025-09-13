@@ -1,0 +1,9 @@
+{
+  "version": 2,
+  "mode": "ALL",
+  "messages": {
+    "infos": true,
+    "warnings": true,
+    "errors": true
+  }
+}
