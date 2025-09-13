@@ -15,7 +15,7 @@ jobs:
         name: 'fpc-minecraft'
         file: 'compose.yaml'
         host: ${{ secrets.DOCKER_HOST }}
-        port: ${{ secrets.DOCKER_PORT }}
+        port: ${{ vars.DOCKER_PORT }}
         user: ${{ secrets.DOCKER_USER }}
         ssh_key: ${{ secrets.DOCKER_SSH_KEY }}
         mode: compose
