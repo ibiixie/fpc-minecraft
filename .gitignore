@@ -1,8 +1,1 @@
-.env
-**.env
-env.**
 
-minecraft/
-!minecraft/.gitkeep
-!minecraft/config/
-!minecraft/eula.txt
