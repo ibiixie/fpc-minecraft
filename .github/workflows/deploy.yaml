@@ -9,6 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: main
     steps:
+    - uses: actions/checkout@v5
     - name: 'Compose Deploy'
       uses: cssnr/stack-deploy-action@v1
       with:
