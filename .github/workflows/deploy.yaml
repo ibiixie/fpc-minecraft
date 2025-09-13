@@ -11,17 +11,17 @@ jobs:
     steps:
     - uses: actions/checkout@v5
     
-    - name: 'Create Env File'
-      run: |
-        touch .env
-        echo S3_ENDPOINT="${{ vars.S3_ENDPOINT }}" >> .env
-        echo S3_PORT="${{ vars.S3_PORT }}" >> .env
-        echo S3_BUCKET="${{ vars.S3_BUCKET }}" >> .env
-        echo S3_KEY="${{ secrets.S3_KEY }}" >> .env
-        echo S3_SECRET="${{ secrets.S3_SECRET }}" >> .env
-        echo DOCKER_USER="${{ secrets.DOCKER_USER }}" >> .env
-        echo DOCKER_HOST="${{ secrets.DOCKER_HOST }}" >> .env
-        echo DOCKER_SSH_KEY="${{ secrets.DOCKER_SSH_KEY }}" >> .env
+    # - name: 'Create Env File'
+    #   run: |
+    #     touch .env
+    #     echo S3_ENDPOINT="${{ vars.S3_ENDPOINT }}" >> .env
+    #     echo S3_PORT="${{ vars.S3_PORT }}" >> .env
+    #     echo S3_BUCKET="${{ vars.S3_BUCKET }}" >> .env
+    #     echo S3_KEY="${{ secrets.S3_KEY }}" >> .env
+    #     echo S3_SECRET="${{ secrets.S3_SECRET }}" >> .env
+    #     echo DOCKER_USER="${{ secrets.DOCKER_USER }}" >> .env
+    #     echo DOCKER_HOST="${{ secrets.DOCKER_HOST }}" >> .env
+    #     echo DOCKER_SSH_KEY="${{ secrets.DOCKER_SSH_KEY }}" >> .env
         
     - name: 'Compose Deploy'
       uses: cssnr/stack-deploy-action@v1
@@ -31,7 +31,17 @@ jobs:
         host: ${{ secrets.DOCKER_HOST }}
         port: ${{ vars.DOCKER_PORT }}
         user: ${{ secrets.DOCKER_USER }}
-        env_file: .env
+        # env_file: .env
         ssh_key: ${{ secrets.DOCKER_SSH_KEY }}
         mode: compose
         args: --remove-orphans --force-recreate
+      env:
+        S3_ENDPOINT: ${{ vars.S3_ENDPOINT }}
+        S3_PORT: ${{ vars.S3_PORT }}
+        S3_BUCKET: ${{ vars.S3_BUCKET }}
+        S3_KEY: ${{ secrets.S3_KEY }}
+        S3_SECRET: ${{ secrets.S3_SECRET }}
+        DOCKER_USER: ${{ secrets.DOCKER_USER }}
+        DOCKER_HOST: ${{ secrets.DOCKER_HOST }}
+        DOCKER_SSH_KEY: |
+          ${{ secrets.DOCKER_SSH_KEY }}
