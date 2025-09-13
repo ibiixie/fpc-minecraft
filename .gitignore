@@ -1,9 +1,8 @@
-secrets
 .env
 **.env
 env.**
 
+minecraft/
 !minecraft/.gitkeep
-minecraft
-
-act.*
+!minecraft/config/
+!minecraft/eula.txt
