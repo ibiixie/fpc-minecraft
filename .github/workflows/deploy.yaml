@@ -23,7 +23,7 @@ jobs:
         overwrite: true
 
     - name: Transfer Minecraft Server Icon
-      uses: applyboy/scp-action@v1
+      uses: appleboy/scp-action@v1
       with:
         host: ${{ secrets.DOCKER_HOST }}
         username: ${{ secrets.DOCKER_USER }}
