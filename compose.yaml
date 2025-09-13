@@ -81,11 +81,11 @@ services:
       BACKUP_CRON_EXPRESSION: "0 9 1/2 * *"
       BACKUP_PRUNING_PREFIX: backup-
       BACKUP_RETENTION_DAYS: '30'
-      AWS_ENDPOINT: ${{ vars.S3_ENDPOINT }}:${{ vars.S3_PORT }}
+      AWS_ENDPOINT: ${S3_ENDPOINT}:${S3_PORT}
       AWS_ENDPOINT_PROTO: https
-      AWS_S3_BUCKET_NAME: ${{ vars.S3_BUCKET }}
-      AWS_ACCESS_KEY_ID: ${{ secrets.S3_KEY }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.S3_SECRET }} 
+      AWS_S3_BUCKET_NAME: ${S3_BUCKET}
+      AWS_ACCESS_KEY_ID: ${S3_KEY}
+      AWS_SECRET_ACCESS_KEY: ${S3_SECRET} 
       env_file: .env
     volumes:
       - ./minecraft/world:/backup/minecraft/world:ro
