@@ -33,7 +33,7 @@ services:
         Necrosynthesis
       OPS: |-
         iBiixie
-      ICON: /icon.png
+      ICON: https://raw.githubusercontent.com/ibiixie/fpc-minecraft/refs/heads/main/icon.png
       OVERRIDE_ICON: true
       ENABLE_RCON: true
       MODS: |-
@@ -70,8 +70,7 @@ services:
       - 44730:25565
       - 8100:8100
     volumes:
-      - ./minecraft:/data
-      - ./icon.png:/icon.png
+      - /mnt/block-callisto/fpc-minecraft/data:/data
 
   backup:
     image: offen/docker-volume-backup:v2
