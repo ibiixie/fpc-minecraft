@@ -16,6 +16,8 @@ services:
       GUI: false
       MOTD: \u00A7l\u00A75~\u00A7d🌸 Petals' Craft 🌸\u00A75~
       SERVER_NAME: Petals' Craft
+      ICON: /icon.png
+      OVERRIDE_ICON: true
       MAX_PLAYERS: 128
       SPAWN_PROTECTION: 0
       ENFORCE_SECURE_PROFILE: false
@@ -70,7 +72,8 @@ services:
       - 44730:25565
       - 8100:8100
     volumes:
-      - /mnt/block-callisto/fpc-minecraft/data:/data
+      - /mnt/block-callisto/fpc-minecraft/minecraft:/data
+      - /mnt/block-callisto/fpc-minecraft/icon.png:/icon.png
 
   backup:
     image: offen/docker-volume-backup:v2

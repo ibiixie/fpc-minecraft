@@ -19,7 +19,7 @@ jobs:
         key: ${{ secrets.DOCKER_SSH_KEY }}
         port: ${{ secrets.DOCKER_PORT }}
         source: "./minecraft"
-        target: "/mnt/block-callisto/"
+        target: "/mnt/block-callisto/fpc-minecraft/"
         overwrite: true
 
     - name: Transfer Minecraft Server Icon
@@ -30,7 +30,7 @@ jobs:
         key: ${{ secrets.DOCKER_SSH_KEY }}
         port: ${{ secrets.DOCKER_PORT }}
         source: "./icon.png"
-        target: "/mnt/block-callisto/"
+        target: "/mnt/block-callisto/fpc-minecraft/"
         overwrite: true
 
     - name: 'Compose Deploy'
