@@ -77,7 +77,7 @@ services:
     image: offen/docker-volume-backup:v2
     restart: always
     environment:
-      BACKUP_FILENAME: backup-%Y-%m-%dT%H-%M-%S.tar.gz
+      BACKUP_FILENAME: backup-%Y-%m-%dT%H-%M-%S.{{ .Extension }}
       BACKUP_CRON_EXPRESSION: "0 9 1/2 * *"
       BACKUP_PRUNING_PREFIX: backup-
       BACKUP_RETENTION_DAYS: '30'
@@ -101,6 +101,5 @@ services:
       - /mnt/block-callisto/fpc-minecraft/minecraft/server-icon.png:/backup/minecraft/server-icon.png:ro
       - /mnt/block-callisto/fpc-minecraft/minecraft/eula.txt:/backup/minecraft/eula.txt:ro
       - /mnt/block-callisto/fpc-minecraft/minecraft/fstats.log:/backup/minecraft/fstats.log:ro
-      - /mnt/block-callisto/fpc-minecraft/compose.yaml:/backup/compose.yaml:ro
       - /mnt/block-callisto/fpc-minecraft/icon.png:/backup/icon.png:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
