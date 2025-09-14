@@ -85,11 +85,22 @@ services:
       AWS_ENDPOINT_PROTO: https
       AWS_S3_BUCKET_NAME: ${S3_BUCKET}
       AWS_ACCESS_KEY_ID: ${S3_KEY}
-      AWS_SECRET_ACCESS_KEY: ${S3_SECRET} 
+      AWS_SECRET_ACCESS_KEY: ${S3_SECRET}
+      BACKUP_COMPRESSION: zst
+      GIZ_PARELLELISM: 0
       env_file: .env
     volumes:
-      - ./minecraft/world:/backup/minecraft/world:ro
-      - ./minecraft/logs:/backup/minecraft/logs:ro
-      - ./minecraft/config:/backup/minecraft/config:ro
-      - ./minecraft/mods:/backup/minecraft/mods:ro
+      - /mnt/block-callisto/fpc-minecraft/minecraft/world:/backup/minecraft/world:ro
+      - /mnt/block-callisto/fpc-minecraft/minecraft/logs:/backup/minecraft/logs:ro
+      - /mnt/block-callisto/fpc-minecraft/minecraft/config:/backup/minecraft/config:ro
+      - /mnt/block-callisto/fpc-minecraft/minecraft/mods:/backup/minecraft/mods:ro
+      - /mnt/block-callisto/fpc-minecraft/minecraft/banned-ips.json:/backup/minecraft/banned-ips.json:ro
+      - /mnt/block-callisto/fpc-minecraft/minecraft/banned-players.json:/backup/minecraft/banned-players.json:ro
+      - /mnt/block-callisto/fpc-minecraft/minecraft/ops.json:/backup/minecraft/ops.json:ro
+      - /mnt/block-callisto/fpc-minecraft/minecraft/whitelist.json:/backup/minecraft/whitelist.json:ro
+      - /mnt/block-callisto/fpc-minecraft/minecraft/server-icon.png:/backup/minecraft/server-icon.png:ro
+      - /mnt/block-callisto/fpc-minecraft/minecraft/eula.txt:/backup/minecraft/eula.txt:ro
+      - /mnt/block-callisto/fpc-minecraft/minecraft/fstats.log:/backup/minecraft/fstats.log:ro
+      - /mnt/block-callisto/fpc-minecraft/compose.yaml:/backup/compose.yaml:ro
+      - /mnt/block-callisto/fpc-minecraft/icon.png:/backup/icon.png:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
