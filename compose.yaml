@@ -58,6 +58,8 @@ services:
         spark:3KCl7Vx0
         bluemap:plVwynim
         bluemap-offline-player-markers-(fabric):w8iZe7gX
+        c2me-fabric:tlZRTK1v
+        scalablelux:Bi5i8Ema
       RCON_CMDS_STARTUP: |-
         gamerule doFireTick false
         gamerule mobGriefing false
