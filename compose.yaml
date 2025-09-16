@@ -60,6 +60,9 @@ services:
         bluemap-offline-player-markers-(fabric):w8iZe7gX
         c2me-fabric:tlZRTK1v
         scalablelux:Bi5i8Ema
+        inventory-totem:EKYaWQlO
+        recast:DRurPuCn
+        double-doors:Kaxph4k0
       RCON_CMDS_STARTUP: |-
         gamerule doFireTick false
         gamerule mobGriefing false
