@@ -16,7 +16,7 @@
   "default": {
     "display_name": "${default}",
     "message_formats": {
-      "chat": "[<hover:show_text:'%luckperms:primary_group_name%'><color:#f17bc2>%luckperms:prefix%</color></hover>] ${player}: ${message}",
+      "chat": "<hover:show_text:'%luckperms:primary_group_name%'><color:#f17bc2>%luckperms:prefix%</color></hover> ${player}: ${message}",
       "joined_the_game": "<yellow><lang:multiplayer.player.joined:'${player}'></yellow>",
       "joined_after_name_change": "<yellow><lang:multiplayer.player.joined.renamed:'${player}':'${old_name}'></yellow>",
       "joined_for_first_time": "<yellow><lang:multiplayer.player.joined:'${player}'></yellow>",
