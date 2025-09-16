@@ -73,7 +73,8 @@ services:
         chunky continue
     ports:
       - 44730:25565
-      - 8100:8100
+    expose:
+      - 8100
     networks:
       - public
       - proxied
@@ -119,3 +120,4 @@ networks:
   proxied:
     name: proxied
     external: true
+
