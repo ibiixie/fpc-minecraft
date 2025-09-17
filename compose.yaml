@@ -7,6 +7,7 @@ services:
     container_name: fpc-minecraft
     labels:
       - docker-volume-backup.stop-during-backup=true
+      - docker-volume-backup.archive-pre=sh /pre-backup.sh
     environment:
       EULA: true
       TYPE: FABRIC
@@ -81,15 +82,16 @@ services:
     volumes:
       - /mnt/block-callisto/fpc-minecraft/minecraft:/data
       - /mnt/block-callisto/fpc-minecraft/icon.png:/icon.png
+      - /mnt/block-callisto/fpc-minecraft/pre-backup.sh:/pre-backup.sh
 
   backup:
     image: offen/docker-volume-backup:v2
     restart: always
     environment:
       BACKUP_FILENAME: backup-%Y-%m-%dT%H-%M-%S.{{ .Extension }}
-      BACKUP_CRON_EXPRESSION: "0 9 1/2 * *"
+      BACKUP_CRON_EXPRESSION: "0 45 8 * * *"
       BACKUP_PRUNING_PREFIX: backup-
-      BACKUP_RETENTION_DAYS: '30'
+      BACKUP_RETENTION_DAYS: '90'
       AWS_ENDPOINT: ${S3_ENDPOINT}:${S3_PORT}
       AWS_ENDPOINT_PROTO: https
       AWS_S3_BUCKET_NAME: ${S3_BUCKET}

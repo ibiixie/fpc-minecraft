@@ -33,6 +33,17 @@ jobs:
         target: "/mnt/block-callisto/fpc-minecraft/"
         overwrite: true
 
+    - name: Transfer Pre-Backup Script
+      uses: appleboy/scp-action@v1
+      with:
+        host: ${{ secrets.DOCKER_HOST }}
+        username: ${{ secrets.DOCKER_USER }}
+        key: ${{ secrets.DOCKER_SSH_KEY }}
+        port: ${{ secrets.DOCKER_PORT }}
+        source: "./pre-backup.sh"
+        target: "/mnt/block-callisto/fpc-minecraft/"
+        overwrite: true
+        
     - name: 'Compose Deploy'
       uses: cssnr/stack-deploy-action@v1
       with:
