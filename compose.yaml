@@ -28,12 +28,7 @@ services:
       VIEW_DISTANCE: 10
       DIFFICULTY: normal
       ENABLE_WHITELIST: true
-      WHITELIST: |-
-        iBiixie
-        Rescuwu
-        Lesslos_LP
-        Kosiati
-        Necrosynthesis
+      WHITELIST: ${MC_WHITELIST}
       OPS: |-
         iBiixie
       ENABLE_RCON: true
