@@ -11,7 +11,7 @@ services:
     environment:
       EULA: true
       TYPE: FABRIC
-      MEMORY: 14G
+      MEMORY: 4G
       VERSION: "1.21.8"
       USE_MEOWICE_GRAALVM_FLAGS: true
       GUI: false
